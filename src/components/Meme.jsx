@@ -1,5 +1,6 @@
+//import { useState } from "react";
+
 const Meme = () => {
-  function handleClick() {}
   return (
     <div className="py-20 md:px-10 min-h-full flex flex-grow md:text-xl">
       <div action="" className="w-5/6 md:w-1/2 mx-auto">
@@ -22,10 +23,7 @@ const Meme = () => {
           </div>
         </div>
 
-        <button
-          className="bg-yellow-500 py-2 px-4 rounded-lg text-yellow-900 hover:bg-yellow-400 hover:text-yellow-800 transition duration-300 block w-full shadow-xl font-bold"
-          onClick={handleClick}
-        >
+        <button className="bg-yellow-500 py-2 px-4 rounded-lg text-yellow-900 hover:bg-yellow-400 hover:text-yellow-800 transition duration-300 block w-full shadow-xl font-bold">
           Generate
         </button>
       </div>
