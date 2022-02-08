@@ -1,8 +1,28 @@
-//import { useState } from "react";
+import React from "react";
+import memesData from "../memeData";
 
 const Meme = () => {
+  const [meme, setMeme] = React.useState({
+    topText: "",
+    bottomText: "",
+    randomImg: "http://i.imgflip.com/1bij.jpg",
+  });
+
+  const [allMemes, setAllMemes] = React.useState(memesData);
+
+  function getMemeImage() {
+    const memesArray = allMemes.data.memes;
+    const randomNumber = Math.floor(Math.random() * memesArray.length);
+    const randomUrl = memesArray[randomNumber].url;
+    setMeme((prevMeme) => {
+      return {
+        ...prevMeme,
+        randomImg: randomUrl,
+      };
+    });
+  }
   return (
-    <div className="py-20 md:px-10 min-h-full flex flex-grow md:text-xl">
+    <div className="py-20 md:px-10 min-h-full flex flex-col flex-grow md:text-xl">
       <div action="" className="w-5/6 md:w-1/2 mx-auto">
         <div className="shadow-xl rounded-xl">
           <div className="flex items-center bg-gray-200 rounded-t-lg border-b border-gray-300">
@@ -23,10 +43,16 @@ const Meme = () => {
           </div>
         </div>
 
-        <button className="bg-yellow-500 py-2 px-4 rounded-lg text-yellow-900 hover:bg-yellow-400 hover:text-yellow-800 transition duration-300 block w-full shadow-xl font-bold">
+        <button
+          className="bg-yellow-500 py-2 px-4 rounded-lg text-yellow-900 hover:bg-yellow-400
+         hover:text-yellow-800 transition duration-300 block w-full shadow-xl font-bold"
+          onClick={getMemeImage}
+        >
           Generate
         </button>
       </div>
+
+      <img className="mt-12 h-94 w-94" src={meme.randomImg} alt="#"></img>
     </div>
   );
 };
