@@ -29,7 +29,7 @@ const Meme = () => {
             <input
               className="flex-1 p-3 bg-transparent outline-none"
               type="text"
-              id="text1"
+              name="text1"
               placeholder="Text 1"
             />
           </div>
@@ -37,7 +37,7 @@ const Meme = () => {
             <input
               className="flex-1 p-3 bg-transparent outline-none"
               type="text"
-              id="text2"
+              name="text2"
               placeholder="Text 2"
             />
           </div>
@@ -51,8 +51,9 @@ const Meme = () => {
           Generate
         </button>
       </div>
-
-      <img className="mt-12 h-94 w-94" src={meme.randomImg} alt="#"></img>
+      <div className="max-h-94 w-94 flex justify-center border border-red-500 mt-12 ">
+        <img className="" src={meme.randomImg} alt="#"></img>
+      </div>
     </div>
   );
 };
