@@ -1,5 +1,4 @@
 import React from "react";
-import memesData from "../memeData";
 
 const Meme = () => {
   const [meme, setMeme] = React.useState({
@@ -8,12 +7,28 @@ const Meme = () => {
     randomImg: "http://i.imgflip.com/1bij.jpg",
   });
 
-  const [allMemes, setAllMemes] = React.useState(memesData);
+  const [allMemes, setAllMemes] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch("https://api.imgflip.com/get_memes")
+      .then((res) => res.json())
+      .then((data) => setAllMemes(data.data.memes));
+  }, []);
+
+  function handleFormChange(event) {
+    const { name, value } = event.target;
+    console.log(name, value);
+    setMeme((prevMeme) => {
+      return {
+        ...prevMeme,
+        [name]: value,
+      };
+    });
+  }
 
   function getMemeImage() {
-    const memesArray = allMemes.data.memes;
-    const randomNumber = Math.floor(Math.random() * memesArray.length);
-    const randomUrl = memesArray[randomNumber].url;
+    const randomNumber = Math.floor(Math.random() * allMemes.length);
+    const randomUrl = allMemes[randomNumber].url;
     setMeme((prevMeme) => {
       return {
         ...prevMeme,
@@ -21,6 +36,7 @@ const Meme = () => {
       };
     });
   }
+
   return (
     <div className="py-20 md:px-10 min-h-full flex flex-col flex-grow md:text-xl">
       <div action="" className="w-5/6 md:w-1/2 mx-auto">
@@ -29,7 +45,9 @@ const Meme = () => {
             <input
               className="flex-1 p-3 bg-transparent outline-none"
               type="text"
-              name="text1"
+              name="topText"
+              value={meme.topText}
+              onChange={handleFormChange}
               placeholder="Text 1"
             />
           </div>
@@ -37,7 +55,9 @@ const Meme = () => {
             <input
               className="flex-1 p-3 bg-transparent outline-none"
               type="text"
-              name="text2"
+              name="bottomText"
+              value={meme.bottomText}
+              onChange={handleFormChange}
               placeholder="Text 2"
             />
           </div>
@@ -51,8 +71,10 @@ const Meme = () => {
           Generate
         </button>
       </div>
-      <div className="max-h-94 w-94 flex justify-center border border-red-500 mt-12 ">
+      <div className="max-h-94 w-94 flex justify-center border border-red-500 mt-12 relative">
+        <h2 className="absolute top-0 meme-text">{meme.topText}</h2>
         <img className="" src={meme.randomImg} alt="#"></img>
+        <h2 className="absolute bottom-0 meme-text">{meme.bottomText}</h2>
       </div>
     </div>
   );
